@@ -2,6 +2,7 @@ package com.springdatagpt.springgpt.orm;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +16,7 @@ public class Categoria{
     private Long id;
     public String nome;
 
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy = "categorias", fetch = FetchType.EAGER)
     private List<Produto> produtos;
     
     //GETTERS AND SETTERS
@@ -27,6 +28,17 @@ public class Categoria{
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    //TO STRING
+    @Override
+    public String toString() {
+        return "Categoria [id=" + id + ", nome=" + nome + ", produtos=" + produtos + "]";
     }
 
     

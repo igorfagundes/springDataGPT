@@ -7,7 +7,10 @@ import java.util.Scanner;
 import org.springframework.stereotype.Service;
 
 import com.springdatagpt.springgpt.orm.Produto;
+import com.springdatagpt.springgpt.repository.CategoriaRepository;
 import com.springdatagpt.springgpt.repository.ProdutoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class CrudProdutoService {
@@ -19,12 +22,14 @@ public CrudProdutoService(ProdutoRepository produtoRepository, CategoriaReposito
     this.categoriaRepository = categoriaRepository;
 }
 //METODO MENU
+
 public void menu(Scanner scanner){
     Boolean isTrue = true;
     while(isTrue){
         System.out.println("### MENU ###");
         System.out.println("# [1] CADASTRAR");
         System.out.println("# [2] BUSCAR POR ID");
+        System.out.println("# [0] SAIR");
         int opcao = scanner.nextInt();
 
         switch(opcao){
@@ -60,6 +65,7 @@ public void cadastrar(Scanner scanner){
     System.out.println("PRODUTO " + produto.getNome() + " cadastrado com sucesso!");
 }
 //METODO BUSCAR POR ID
+
 public void buscarPorId(Scanner scanner){
     System.out.print("Digite o ID do PRODUTO: ");
     Long id = scanner.nextLong();
