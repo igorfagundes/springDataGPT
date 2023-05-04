@@ -12,9 +12,11 @@ import com.springdatagpt.springgpt.repository.ProdutoRepository;
 @Service
 public class CrudProdutoService {
     public ProdutoRepository produtoRepository;
+    public CategoriaRepository categoriaRepository;
 
-public CrudProdutoService(ProdutoRepository produtoRepository){
+public CrudProdutoService(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository){
     this.produtoRepository = produtoRepository;
+    this.categoriaRepository = categoriaRepository;
 }
 //METODO MENU
 public void menu(Scanner scanner){

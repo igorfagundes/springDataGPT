@@ -49,8 +49,8 @@ public class Produto{
     public Categoria getCategoria() {
         return categoria;
     }
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
+    public void setCategoria(Iterable<Categoria> categoria2) {
+        this.categoria = categoria2;
     }
     //TO STRING
     @Override

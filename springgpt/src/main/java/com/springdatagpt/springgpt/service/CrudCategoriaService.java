@@ -1,6 +1,9 @@
 package com.springdatagpt.springgpt.service;
 import com.springdatagpt.springgpt.repository.CategoriaRepository;
 import com.springdatagpt.springgpt.repository.ProdutoRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import com.springdatagpt.springgpt.orm.Categoria;
 import com.springdatagpt.springgpt.orm.Produto;
 
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CrudCategoriaService {
     public CategoriaRepository categoriaRepository;
+    public ProdutoRepository produtoRepository;
 
 public CrudCategoriaService(CategoriaRepository categoriaRepository, ProdutoRepository produtoRepository){
     this.categoriaRepository = categoriaRepository;
@@ -28,7 +32,7 @@ public void menu(Scanner scanner){
         int opcao = scanner.nextInt();
         switch(opcao){
             case 1:
-
+            
             break;
             default:
 
@@ -37,10 +41,14 @@ public void menu(Scanner scanner){
     }
 }
 public void associarCategoria(Long produtoId, List<Long> categoriaId){
-  
-    Optional<Produto> opProduto = produtoRepository.findById(produtoId);
-    if(opProduto.isPresent){
+        if(opProduto.isPresent()){
+        Produto produto = produtoRepository.findById(produtoId).orElseThrow( () -> new RuntimeException("Produto não encontrado"));
+        List<Categoria> categorias = categoriaRepository.findAllById(categoriaId);
+        produto.setCategoria(categorias);
+        produtoRepository.save(produto);
 
+    }else{
+        throw new EntityNotFoundException("Produto não encontrado com o ID: " + produtoId);
     }
 
     
